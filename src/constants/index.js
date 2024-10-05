@@ -1,0 +1,1 @@
+export const logo = 'https://homepageonline.co.uk/wp-content/uploads/2018/11/click-homepage-online-estate-agents-ni-limavady-derry-londonderry-property-sales-logo.jpg';
