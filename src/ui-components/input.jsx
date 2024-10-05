@@ -1,14 +1,13 @@
 function Input({label, type = 'text', state, setState}) {
   return (
     <div>
-      <label for="input" class="sr-only">{label}</label>
+      <label className="sr-only">{label}</label>
       <input
         type={type}
-        id="input"
-        class="form-control"
+        className="form-control"
         placeholder={label}
         required=""
-        autofocus=""
+        autoFocus=""
         value={state}
         onChange={e => setState(e.target.value)}
       />

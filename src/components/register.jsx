@@ -11,9 +11,9 @@ function Register() {
 
   return (
     <div className="text-center mt-5">
-      <form class="form-signin w-25 m-auto">
-        <img class="mb-2" src={registerLogo} alt="" width="72" height="72" />
-        <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
+      <form className="form-signin w-25 m-auto">
+        <img className="mb-2" src={registerLogo} alt="" width="72" height="72" />
+        <h1 className="h3 mb-3 font-weight-normal">Please register</h1>
         
         <Input label={'Username'} state={name} setState={setName} />
         
@@ -21,7 +21,7 @@ function Register() {
         
         <Input label={'Password'} type={'password'} state={password} setState={setPassword}/>
 
-        <button class="btn btn-lg btn-primary btn-block mt-2" type="submit">Register</button>
+        <button className="btn btn-lg btn-primary btn-block mt-2" type="submit">Register</button>
         <p class="mt-5 mb-3 text-muted">© 2024</p>
       </form>
     </div>
