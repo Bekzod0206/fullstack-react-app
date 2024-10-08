@@ -1,12 +1,22 @@
 import { useState } from "react"
 import { registerLogo } from "../constants"
 import { Input } from "../ui-components"
+import { useDispatch, useSelector } from "react-redux";
+import { registerUserStart } from "../slice/auth";
 
 function Register() {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch()
+  const {isLoading} = useSelector(state => state.auth)
+  const registerHandler = (e) => {
+    e.preventDefault()
+    dispatch(registerUserStart())
+  }
+
 
 
   return (
@@ -21,7 +31,9 @@ function Register() {
         
         <Input label={'Password'} type={'password'} state={password} setState={setPassword}/>
 
-        <button className="btn btn-lg btn-primary btn-block mt-2" type="submit">Register</button>
+        <button className="btn btn-lg btn-primary btn-block mt-2" type="submit" onClick={registerHandler} disabled={isLoading}>
+          {isLoading ? 'Loading...' : 'Register'}
+        </button>
         <p class="mt-5 mb-3 text-muted">© 2024</p>
       </form>
     </div>

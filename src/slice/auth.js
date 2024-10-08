@@ -14,9 +14,14 @@ export const authSlice = createSlice({
       state.isLoading = true
     },
     loginUserSuccess: state => {},
-    loginUserFailure: state => {}
+    loginUserFailure: state => {},
+    registerUserStart: state => {
+      state.isLoading = true
+    },
+    registerUserSuccess: state => {},
+    registerUserFailure: state => {},
   }
 })
 
-export const {loginUserStart} = authSlice.actions
+export const { loginUserStart, registerUserStart } = authSlice.actions
 export default authSlice.reducer
