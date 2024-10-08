@@ -2,7 +2,8 @@ import { useState } from "react"
 import { registerLogo } from "../constants"
 import { Input } from "../ui-components"
 import { useDispatch, useSelector } from "react-redux";
-import { registerUserStart } from "../slice/auth";
+import { registerUserFailure, registerUserStart, registerUserSuccess } from "../slice/auth";
+import AuthService from "../service/auth";
 
 function Register() {
 
@@ -15,6 +16,16 @@ function Register() {
   const registerHandler = (e) => {
     e.preventDefault()
     dispatch(registerUserStart())
+
+    const user = {username: name, email, password}
+
+    try {
+      const response = AuthService.userRegister(user)
+      console.log(response, 'response')
+      dispatch(registerUserSuccess())
+    } catch (error) {
+      dispatch(registerUserFailure())
+    }
   }
 
 
@@ -34,7 +45,7 @@ function Register() {
         <button className="btn btn-lg btn-primary btn-block mt-2" type="submit" onClick={registerHandler} disabled={isLoading}>
           {isLoading ? 'Loading...' : 'Register'}
         </button>
-        <p class="mt-5 mb-3 text-muted">© 2024</p>
+        <p className="mt-5 mb-3 text-muted">© 2024</p>
       </form>
     </div>
   )
