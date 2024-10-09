@@ -4,6 +4,7 @@ import { Input } from "../ui-components"
 import { useDispatch, useSelector } from "react-redux";
 import { signUserFailure, signUserStart, signUserSuccess } from "../slice/auth";
 import AuthService from "../service/auth";
+import { ValidationError } from './'
 
 function Register() {
 
@@ -13,15 +14,14 @@ function Register() {
 
   const dispatch = useDispatch()
   const {isLoading} = useSelector(state => state.auth)
-  const registerHandler = (e) => {
+  const registerHandler = async (e) => {
     e.preventDefault()
     dispatch(signUserStart())
     const user = {username: name, email, password}
     try {
-      const response = AuthService.userRegister(user)
+      const response = await AuthService.userRegister(user)
       dispatch(signUserSuccess(response.user))
     } catch (error) {
-      console.log(error, 'error')
       dispatch(signUserFailure(error.response.data.errors))
     }
   }
@@ -32,10 +32,10 @@ function Register() {
         <img className="mb-2" src={registerLogo} alt="" width="72" height="72" />
         <h1 className="h3 mb-3 font-weight-normal">Please register</h1>
         
+        <ValidationError />
+
         <Input label={'Username'} state={name} setState={setName} />
-        
         <Input label={'Email address'} type={'email'} state={email} setState={setEmail}/>
-        
         <Input label={'Password'} type={'password'} state={password} setState={setPassword}/>
 
         <button className="btn btn-lg btn-primary btn-block mt-2" type="submit" onClick={registerHandler} disabled={isLoading}>
