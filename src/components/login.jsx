@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { registerLogo } from "../constants"
 import { Input } from "../ui-components"
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +14,7 @@ function Login() {
 
   const dispatch = useDispatch()
   const {isLoading, loggedIn} = useSelector(state => state.auth)
+  console.log(loggedIn, 'loggedIn')
   const loginHandler = async (e) => {
     e.preventDefault()
     dispatch(signUserStart())
@@ -30,11 +31,12 @@ function Login() {
     }
   }
 
-  useCallback(() => {
+  useEffect(() => {
     if(loggedIn){
       navigate('/')
+      console.log('hello world')
     }
-  }, [])
+  }, [loggedIn])
 
   return (
     <div className="text-center mt-5">
