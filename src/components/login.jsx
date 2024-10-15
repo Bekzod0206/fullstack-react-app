@@ -14,7 +14,6 @@ function Login() {
 
   const dispatch = useDispatch()
   const {isLoading, loggedIn} = useSelector(state => state.auth)
-  console.log(loggedIn, 'loggedIn')
   const loginHandler = async (e) => {
     e.preventDefault()
     dispatch(signUserStart())
@@ -34,7 +33,6 @@ function Login() {
   useEffect(() => {
     if(loggedIn){
       navigate('/')
-      console.log('hello world')
     }
   }, [loggedIn])
 
