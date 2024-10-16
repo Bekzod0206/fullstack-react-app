@@ -14,6 +14,7 @@ function Navbar() {
     dispatch(logoutUser())
     removeItem('token')
     navigate('/login')
+    console.loe('logout happened')
   }
 
   return (
@@ -28,7 +29,7 @@ function Navbar() {
             <p className="me-3 m-0 py-2 text-dark text-decoration-none">
               {user.username}
             </p>
-            <button className="btn btn-outline-danger" onClick={logoutHandler()}>Logout</button>
+            <button className="btn btn-outline-danger" onClick={logoutHandler}>Logout</button>
           </>
         ) : (
           <>
