@@ -1,7 +1,6 @@
 function Input({label, type = 'text', state, setState}) {
   return (
     <div>
-      <label className="sr-only">{label}</label>
       <input
         type={type}
         className="form-control"
