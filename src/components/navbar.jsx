@@ -14,7 +14,7 @@ function Navbar() {
     dispatch(logoutUser())
     removeItem('token')
     navigate('/login')
-    console.loe('logout happened')
+    console.log('logout happened')
   }
 
   return (

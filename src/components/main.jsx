@@ -8,6 +8,7 @@ import ArticleService from "../service/article"
 function Main() {
 
   const {articles, isLoading} = useSelector(state => state.article)
+  const {loggedIn, user} = useSelector(state => state.auth)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -24,6 +25,15 @@ function Main() {
   useEffect(() => {
     getArticle()
   }, [])
+
+  const deleteArticle = async (slug) => {
+    try {
+      await ArticleService.deleteArticle(slug)
+      getArticle()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
 
   return isLoading ? <Loader /> : (
@@ -47,8 +57,12 @@ function Main() {
               <div className="card-footer d-flex justify-content-between align-items-center">
                 <div className="btn-group">
                   <button onClick={()=>navigate(`article/${item.slug}`)} type="button" className="btn btn-sm btn-outline-success">View</button>
-                  <button type="button" className="btn btn-sm btn-outline-secondary">Edit</button>
-                  <button type="button" className="btn btn-sm btn-outline-danger">Delete</button>
+                  {loggedIn && user.username === item.author.username && (
+                    <>
+                      <button type="button" className="btn btn-sm btn-outline-secondary">Edit</button>
+                      <button type="button" className="btn btn-sm btn-outline-danger" onClick={() => {deleteArticle(item.slug)}}>Delete</button>
+                    </>
+                  )}
                 </div>
                 <small className="text-body-secondary fw-bold text-capitalize">{item.author.username}</small>
               </div>
