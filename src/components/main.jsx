@@ -1,19 +1,35 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Loader } from "../ui-components"
 import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
+import { getArticleStart, getArticleSuccess } from "../slice/article"
+import ArticleService from "../service/article"
 
 function Main() {
 
   const {articles, isLoading} = useSelector(state => state.article)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  return (
+  const getArticle = async () => {
+    dispatch(getArticleStart())
+    try {
+      const response = await ArticleService.getArticles()
+      dispatch(getArticleSuccess(response.articles))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getArticle()
+  }, [])
+
+
+  return isLoading ? <Loader /> : (
     <>
-
-      {isLoading && <Loader />}
-
       <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {articles.map(item => (
+        {articles && articles.map(item => (
           <div className="col" key={item.id}>
             <div className="card shadow-sm h-100">
               <svg className="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
