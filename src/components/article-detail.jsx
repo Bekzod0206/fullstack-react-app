@@ -26,7 +26,7 @@ function ArticleDetail() {
     getArticleDetail()
   }, [slug])
 
-  return isLoading ? <Loader /> : (
+  return isLoading ? <Loader /> : articleDetail && (
     <div className="jumbotron">
       <div className="container">
         <h1 className="display-3">{ articleDetail.title }</h1>
